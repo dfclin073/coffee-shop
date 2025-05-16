@@ -1,0 +1,27 @@
+[project]
+name = "fast"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.12",
+    "python-multipart>=0.0.20",
+    "uvicorn[standard]>=0.34.2",
+]
+
+[dependency-groups]
+dev = ["mypy>=1.15.0", "pytest>=8.3.5", "ruff>=0.11.9"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D203", "D212", "COM812"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.mypy]
+strict = true
+
+[tool.uv]
+package = true
