@@ -7,13 +7,13 @@ This module provides:
 - looks up the users requested order and check if its on the menu
 """
 
+from decimal import Decimal
+
 
 class MenuItem:
     """Models each Menu Item."""
 
-    def __init__(
-        self, name: str, water: int, milk: int, coffee: int, cost: float
-    ) -> None:
+    def __init__(self, name: str, water: int, milk: int, coffee: int, cost: Decimal) -> None:
         """Initialize the menu items and their ingredient types."""
         self.name = name
         self.cost = cost
@@ -26,9 +26,9 @@ class Menu:
     def __init__(self) -> None:
         """Initialize the drinks and their ingredients with the amount need."""
         self.menu = [
-            MenuItem(name="Latte", water=200, milk=150, coffee=24, cost=2.50),
-            MenuItem(name="Espresso", water=50, milk=0, coffee=18, cost=1.50),
-            MenuItem(name="Cappuccino", water=250, milk=50, coffee=24, cost=3.00),
+            MenuItem(name="Latte", water=200, milk=150, coffee=24, cost=Decimal("2.50")),
+            MenuItem(name="Espresso", water=50, milk=0, coffee=18, cost=Decimal("1.50")),
+            MenuItem(name="Cappuccino", water=250, milk=50, coffee=24, cost=Decimal("3.00")),
         ]
 
     def get_items(self) -> list[str]:
