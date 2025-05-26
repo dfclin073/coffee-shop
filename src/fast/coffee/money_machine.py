@@ -37,7 +37,6 @@ class MoneyMachine:
         for coin in self.COIN_VALUES:
             count = coin_amount.get(coin, 0)
             self.money_received += count * self.COIN_VALUES[coin]
-            print(self.money_received)
         return self.money_received
 
     def make_payment(self, cost: Decimal, coin_amount: dict[str, int]) -> bool | Decimal:

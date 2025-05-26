@@ -13,13 +13,9 @@ from fast.coffee.menu import MenuItem
 class CoffeeMaker:
     """Models the machine that makes the coffee."""
 
-    def __init__(self) -> None:
+    def __init__(self, resources: dict[str, int]) -> None:
         """Initiate the coffee maker resources."""
-        self._resources = {
-            "water": 300,
-            "milk": 200,
-            "coffee": 100,
-        }
+        self._resources = resources
 
     def report(self) -> dict[str, int]:
         """Return a report of all resources."""
