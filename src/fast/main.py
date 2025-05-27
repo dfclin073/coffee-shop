@@ -7,12 +7,16 @@ from beanie import Document, init_beanie
 from fastapi import Depends, FastAPI, Form
 from fastapi.responses import HTMLResponse
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseModel
+from pydantic import BaseModel, MongoDsn
+from pydantic_settings import BaseSettings
 
 from fast.coffee.coffee_maker import CoffeeMaker
 from fast.coffee.menu import Menu
 from fast.coffee.money_machine import MoneyMachine
 
+class Settings(BaseSettings):
+    database_url: MongoDsn
+    
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -21,8 +25,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-mongoip = "mongodb://localhost:27017"
-client = AsyncIOMotorClient[Any](mongoip)
+settings = Settings()
+client = AsyncIOMotorClient[Any](str(settings.database_url))
 
 
 class Drinks(Document):
@@ -177,7 +181,7 @@ def payment(drink_name: str, cost: Decimal, money_machine: MoneyMachine) -> str:
 
 
 async def get_coffee_maker() -> AsyncGenerator[CoffeeMaker, Any]:
-    coffee_maker_id = "682e2e3ae2942466ade0077b"
+    coffee_maker_id = "6835f8138b27bc443086ac4d"
     ingredients = await Ingredients.get(coffee_maker_id)
     if not ingredients:
         raise ValueError(f"Could not find ingredients for this coffee maker {coffee_maker_id}")
